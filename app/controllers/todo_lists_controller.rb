@@ -7,7 +7,6 @@ class TodoListsController < ApplicationController
   end
 
   def show
-    @items = @todo_list.items.order(:status)
   end
 
   def new
