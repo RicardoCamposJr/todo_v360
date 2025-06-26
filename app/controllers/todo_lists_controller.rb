@@ -10,6 +10,19 @@ class TodoListsController < ApplicationController
     @items = @todo_list.items.order(:status)
   end
 
+  def new
+    @todo_list = current_user.todo_lists.new
+  end
+
+  def create
+    @todo_list = current_user.todo_lists.new(todo_list_params)
+    if @todo_list.save
+      redirect_to @todo_list, notice: "Lista criada com sucesso."
+    else
+      render :new
+    end
+  end
+
   private
 
   def set_todo_list
