@@ -33,6 +33,11 @@ class TodoListsController < ApplicationController
     end
   end
 
+  def destroy
+    @todo_list.destroy
+    redirect_to todo_lists_path, notice: "Lista removida."
+  end
+
   private
 
   def set_todo_list
