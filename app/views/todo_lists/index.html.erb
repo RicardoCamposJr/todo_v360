@@ -1,0 +1,9 @@
+<h1>Suas Listas de Tarefas</h1>
+<%= link_to 'Nova Lista', new_todo_list_path %>
+<ul>
+  <% @todo_lists.each do |list| %>
+    <li>
+      <%= link_to list.title, todo_list_path(list) %>
+    </li>
+  <% end %>
+</ul>
