@@ -24,3 +24,10 @@ body {
     width: 50% !important;
   }
 }
+
+.content-align {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-content: center;
+}
