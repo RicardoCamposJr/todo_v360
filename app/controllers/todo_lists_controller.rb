@@ -1,6 +1,6 @@
 class TodoListsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_todo_list, only: [ :show ]
+  before_action :set_todo_list, only: [ :show, :edit, :update ]
 
   def index
     @todo_lists = current_user.todo_lists
@@ -23,9 +23,23 @@ class TodoListsController < ApplicationController
     end
   end
 
+  def edit; end
+
+  def update
+    if @todo_list.update(todo_list_params)
+      redirect_to @todo_list, notice: "Lista atualizada com sucesso."
+    else
+      render :edit
+    end
+  end
+
   private
 
   def set_todo_list
     @todo_list = current_user.todo_lists.find(params[:id])
+  end
+
+  def todo_list_params
+    params.require(:todo_list).permit(:title)
   end
 end
