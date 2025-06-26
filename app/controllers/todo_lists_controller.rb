@@ -1,9 +1,13 @@
 class TodoListsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_todo_list
+  before_action :set_todo_list, only: [ :show ]
 
   def index
     @todo_lists = current_user.todo_lists
+  end
+
+  def show
+    @items = @todo_list.items.order(:status)
   end
 
   private
