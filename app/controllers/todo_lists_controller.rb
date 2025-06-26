@@ -1,6 +1,6 @@
 class TodoListsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_todo_list, only: [ :show, :edit, :update ]
+  before_action :set_todo_list, only: [ :show, :edit, :update, :destroy ]
 
   def index
     @todo_lists = current_user.todo_lists
