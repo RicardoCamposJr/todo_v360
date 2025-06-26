@@ -1,0 +1,15 @@
+<h1><%= @todo_list.title %></h1>
+<%= link_to 'Editar', edit_todo_list_path(@todo_list) %> |
+<%= button_to 'Excluir', todo_list_path(@todo_list), method: :delete, data: { confirm: "Tem certeza?" } %> |
+<%= link_to 'Voltar', todo_lists_path %>
+<hr>
+<h2>Visualização por Lista</h2>
+<% if @items.present? %>
+  <ul>
+    <% @items.each do |item| %>
+      <li>
+        <%= item.title %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
