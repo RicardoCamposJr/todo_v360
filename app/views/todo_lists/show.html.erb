@@ -26,28 +26,39 @@
                 <div class="list-group-item task-container">
                   <div class="d-flex justify-content-between align-items-start">
                     <div class="flex-grow-1">
-                      <!-- Título da task -->
                       <div class="task-title">
-                        <h6 class="fw-medium"><%= item.title %></h6>
-                        <div class="d-flex align-items-center">
-                          <% case item.status %>
-                          <% when 'to_do' %>
-                            <span class="badge bg-secondary text-light me-2">
-                              <i class="fas fa-clock me-1"></i> A fazer
-                            </span>
-                          <% when 'in_progress' %>
-                            <span class="badge bg-info me-2">
-                              <i class="fas fa-spinner me-1"></i> Pendente
-                            </span>
-                          <% when 'done' %>
-                            <span class="badge bg-success me-2">
-                              <i class="fas fa-check me-1"></i> Concluída
-                            </span>
-                          <% else %>
-                            <span class="badge bg-secondary me-2">
-                              <%= item.status.humanize %>
-                            </span>
+                        <div>
+                          <div class="task-infos">
+                            <!-- Título da task -->
+                            <h6 class="fw-medium mb-1"><%= item.title %></h6>
+                            <!-- Status da task -->
+                            <div class="d-flex align-items-center mt-1">
+                              <% case item.status %>
+                              <% when 'to_do' %>
+                                <span class="badge bg-secondary text-light me-2">
+                                  <i class="fas fa-clock me-1"></i> A fazer
+                                </span>
+                              <% when 'in_progress' %>
+                                <span class="badge bg-info me-2">
+                                  <i class="fas fa-spinner me-1"></i> Pendente
+                                </span>
+                              <% when 'done' %>
+                                <span class="badge bg-success me-2">
+                                  <i class="fas fa-check me-1"></i> Concluída
+                                </span>
+                              <% else %>
+                                <span class="badge bg-secondary me-2">
+                                  <%= item.status.humanize %>
+                                </span>
+                              <% end %>
+                            </div>
+                          </div>
+                          <!-- Descrição da task -->
+                          <% if item.description.present? %>
+                            <p class="mb-1 text-muted"><%= item.description %></p>
                           <% end %>
+                          <!-- Data de criação -->
+                          <small class="text-secondary">Criada em <%= l(item.created_at, format: :short) %></small>
                         </div>
                       </div>
                     </div>
