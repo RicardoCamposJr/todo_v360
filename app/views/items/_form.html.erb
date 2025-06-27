@@ -1,15 +1,20 @@
-<%= form_with(model: [todo_list, item]) do |form| %>
-  <div>
-    <%= form.label :title, "Título da tarefa" %>
-    <%= form.text_field :title %>
+<%= form_with(model: [todo_list, item], html: { class: "needs-validation" }) do |form| %>
+  <div class="mb-3">
+    <%= form.label :title, "Título da tarefa", class: "form-label" %>
+    <%= form.text_field :title, class: "form-control", required: true, placeholder: "Digite o título da tarefa" %>
   </div>
-  <div>
-    <%= form.label :description, "Descrição" %>
-    <%= form.text_area :description %>
+  <div class="mb-3">
+    <%= form.label :description, "Descrição", class: "form-label" %>
+    <%= form.text_area :description, class: "form-control", rows: 3, placeholder: "Adicione uma descrição para a tarefa" %>
   </div>
-  <div>
-    <%= form.label :status, "Status" %>
-    <%= form.select :status, Item.statuses.keys.map { |s| [s.humanize, s] } %>
+  <div class="mb-3">
+    <%= form.label :status, "Status", class: "form-label" %>
+    <%= form.select :status, 
+        Item.statuses.keys.map { |s| [s.humanize, s] }, 
+        { prompt: 'Selecione um status' }, 
+        { class: "form-select" } %>
   </div>
-  <%= form.submit "Salvar tarefa" %>
+  <div class="d-grid gap-2">
+    <%= form.submit "Salvar tarefa", class: "btn btn-primary" %>
+  </div>
 <% end %>
