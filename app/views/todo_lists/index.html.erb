@@ -1,9 +1,97 @@
-<h1>Suas Listas de Tarefas</h1>
-<%= link_to 'Nova Lista', new_todo_list_path %>
-<ul>
-  <% @todo_lists.each do |list| %>
-    <li>
-      <%= link_to list.title, todo_list_path(list) %>
-    </li>
-  <% end %>
-</ul>
+<div class="container mt-4 pb-5 responsive-width">
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2 mb-0">Lista de TO DO's</h1>
+        <%= link_to 'Nova Lista', new_todo_list_path, class: "btn btn-primary" %>
+      </div>
+      <% if @todo_lists.any? %>
+        <div class="accordion" id="todoListsAccordion">
+          <% @todo_lists.each_with_index do |list, index| %>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button <%= 'collapsed' unless index == 0 %>" 
+                        type="button" 
+                        data-bs-toggle="collapse" 
+                        data-bs-target="#collapse<%= list.id %>" 
+                        aria-expanded="<%= index == 0 ? 'true' : 'false' %>" 
+                        aria-controls="collapse<%= list.id %>">
+                  <div class="d-flex justify-content-between align-items-center w-100 me-3">
+                    <div>
+                      <strong><%= list.title %></strong>
+                      <small class="text-muted ms-2">
+                        <% items_count = list.items.count %>
+                        <% if items_count > 0 %>
+                          <%= items_count %> <%= items_count == 1 ? 'tarefa' : 'tarefas' %>
+                          <% if list.items.where(status: :done).any? %>
+                            • <%= list.items.where(status: :done).count %> concluída<%= list.items.where(status: :done).count == 1 ? '' : 's' %>
+                          <% end %>
+                        <% else %>
+                          Nenhuma tarefa ainda
+                        <% end %>
+                      </small>
+                    </div>
+                    <span class="badge text-bg-primary rounded-pill">
+                      <%= list.items.count %>
+                    </span>
+                  </div>
+                </button>
+              </h2>
+              <div id="collapse<%= list.id %>" 
+                   class="accordion-collapse collapse <%= 'show' if index == 0 %>" 
+                   data-bs-parent="#todoListsAccordion">
+                <div class="accordion-body">
+                  <% if list.items.any? %>
+                    <ol class="list-group list-group-numbered">
+                      <% list.items.each do |item| %>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold <%= 'text-decoration-line-through text-muted' if item.status == 'done' %>">
+                              <%= item.title %>
+                            </div>
+                            <% if item.description.present? %>
+                              <div class="text-muted small">
+                                <%= item.description %>
+                              </div>
+                            <% end %>
+                          </div>
+                          <span class="badge <%= 
+                            case item.status
+                            when 'done' then 'text-bg-success'
+                            when 'in_progress' then 'text-bg-primary'
+                            else 'text-bg-secondary'
+                            end
+                          %> rounded-pill">
+                            <%= 
+                              case item.status
+                              when 'done' then 'Concluída'
+                              when 'in_progress' then 'Pendente'
+                              else 'A fazer'
+                              end
+                            %>
+                          </span>
+                        </li>
+                      <% end %>
+                    </ol>
+                  <% else %>
+                    <p class="text-muted mb-3">Esta lista não possui tarefas ainda.</p>
+                  <% end %>
+                  <div class="d-flex gap-2 mt-3">
+                    <%= link_to 'Ver Lista', todo_list_path(list), class: "btn btn-outline-primary btn-sm" %>
+                    <%= link_to 'Editar', edit_todo_list_path(list), class: "btn btn-outline-secondary btn-sm" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="text-center py-5">
+          <h3 class="text-muted">Nenhuma lista criada ainda</h3>
+          <p class="text-muted mb-4">Comece criando sua primeira lista de tarefas!</p>
+          <%= link_to 'Criar Primeira Lista', new_todo_list_path, class: "btn btn-primary btn-lg" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

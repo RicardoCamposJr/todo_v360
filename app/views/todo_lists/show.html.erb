@@ -1,15 +1,114 @@
-<h1><%= @todo_list.title %></h1>
-<%= link_to 'Editar', edit_todo_list_path(@todo_list) %> |
-<%= button_to 'Excluir', todo_list_path(@todo_list), method: :delete, data: { confirm: "Tem certeza?" } %> |
-<%= link_to 'Voltar', todo_lists_path %>
-<hr>
-<h2>Visualização por Lista</h2>
-<% if @items.present? %>
-  <ul>
-    <% @items.each do |item| %>
-      <li>
-        <%= item.title %>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+<div class="container mt-4">
+  <div class="row mb-4">
+    <div class="col-12">
+      <h1 class="display-4 text-primary mb-0"><%= @todo_list.title %></h1>
+    </div>
+  </div>
+  <!-- Lista -->
+  <section class="row mb-5">
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white list-title">
+          <h2 class="h4 mb-0 d-flex justify-content-center align-items-center">
+            <i class="fas fa-list me-2"></i>Tarefas
+          </h2>
+          <%= button_to new_todo_list_item_path(@todo_list),
+              method: :get, 
+              class: "btn btn-success",
+              data: { bs_toggle: "tooltip", bs_placement: "left", bs_title: "Adicionar nova tarefa" } do %>
+            <i class="fas fa-plus me-1"></i>Nova Tarefa
+          <% end %>
+        </div>
+        <div class="card-body">
+          <% if @items.any? %>
+            <div class="list-group list-group-flush">
+              <% @items.each do |item| %>
+                <div class="list-group-item task-container">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div class="flex-grow-1">
+                      <!-- Título da task -->
+                      <div class="task-title">
+                        <h6 class="fw-medium"><%= item.title %></h6>
+                        <div class="d-flex align-items-center">
+                          <% case item.status %>
+                          <% when 'to_do' %>
+                            <span class="badge bg-secondary text-light me-2">
+                              <i class="fas fa-clock me-1"></i> A fazer
+                            </span>
+                          <% when 'in_progress' %>
+                            <span class="badge bg-info me-2">
+                              <i class="fas fa-spinner me-1"></i> Pendente
+                            </span>
+                          <% when 'done' %>
+                            <span class="badge bg-success me-2">
+                              <i class="fas fa-check me-1"></i> Concluída
+                            </span>
+                          <% else %>
+                            <span class="badge bg-secondary me-2">
+                              <%= item.status.humanize %>
+                            </span>
+                          <% end %>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Área dos botões à direita -->
+                    <div class="btn-group ms-3 btns-group" role="group">
+                      <!-- Dropdown para os status -->
+                      <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle toggle-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                          Status
+                        </button>
+                        <ul class="dropdown-menu">
+                          <% Item.statuses.keys.each do |status| %>
+                            <% unless status == item.status %>
+                              <li>
+                                <%= link_to todo_list_item_path(@todo_list, item), method: :patch, 
+                                    params: { item: { status: status } }, 
+                                    class: "dropdown-item",
+                                    data: { confirm: "Alterar status para #{status.humanize}?" } do %>
+                                  <% case status %>
+                                  <% when 'to_do' %>
+                                    <i class="fas fa-clock me-2 text-warning"></i> A fazer
+                                  <% when 'in_progress' %>
+                                    <i class="fas fa-spinner me-2 text-info"></i> Pendente
+                                  <% when 'done' %>
+                                    <i class="fas fa-check me-2 text-success"></i> Concluída
+                                  <% end %>
+                                <% end %>
+                              </li>
+                            <% end %>
+                          <% end %>
+                        </ul>
+                      </div>
+                      <!-- Botão de Editar -->
+                      <%= button_to edit_todo_list_item_path(@todo_list, item), class: "btn btn-sm btn-outline-primary" do %>
+                        Editar
+                      <% end %>
+                      <!-- Botão de Excluir -->
+                      <%= button_to todo_list_item_path(@todo_list, item), method: :delete, 
+                          class: "btn btn-sm btn-outline-danger",
+                          data: { 
+                            confirm: "Tem certeza que deseja excluir '#{item.title}'?",
+                            bs_toggle: "tooltip",
+                            bs_placement: "top",
+                            bs_title: "Excluir tarefa"
+                          } do %>
+                        Excluir
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <!-- Tratativa para o caso de não haver tasks na lista atual -->
+            <div class="text-center py-4">
+              <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+              <p class="text-muted">Nenhuma tarefa encontrada.</p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
