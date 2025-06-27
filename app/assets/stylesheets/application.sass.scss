@@ -119,13 +119,22 @@ body {
 
 .task-title {
   display: flex;
+  align-items: start;
   gap: 0.8rem;
+}
 
+.task-infos {
+  display: flex;
+  gap: 0.8rem;
   h6 {
-    margin: 0;
+    margin: 0 !important;
   }
 
   div {
-    margin: 0;
+    margin: 0 !important;
   }
+}
+
+.task-description {
+  max-width: 50%;
 }
