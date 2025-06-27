@@ -7,7 +7,7 @@ class TodoListsController < ApplicationController
   end
 
   def show
-    @items = @todo_list.items
+    @items = @todo_list.items.order(created_at: :desc)
   end
 
   def new

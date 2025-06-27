@@ -1,0 +1,11 @@
+<div class="container mt-4 pb-5 responsive-width">
+  <div class="content-align">
+    <div style="max-width: 500px;">
+      <h1 class="h2 mb-2">Editar Tarefa</h1>
+      <%= render 'form', todo_list: @todo_list, item: @item %>
+      <div class="mt-3">
+        <%= link_to 'Voltar para a lista', todo_list_path(@todo_list), class: "btn btn-outline-secondary" %>
+      </div>
+    </div>
+  </div>
+</div>
