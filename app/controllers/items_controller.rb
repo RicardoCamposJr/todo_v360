@@ -17,13 +17,14 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    # @item e @todo_list já são setados pelos before_actions
   end
 
   def update
     if @item.update(item_params)
-      redirect_to todo_list_path(@item.todo_list)
+      redirect_to todo_list_path(@todo_list), notice: "Tarefa atualizada com sucesso."
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 

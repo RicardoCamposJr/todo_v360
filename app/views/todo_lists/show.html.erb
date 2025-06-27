@@ -81,7 +81,7 @@
                         </ul>
                       </div>
                       <!-- Botão de Editar -->
-                      <%= button_to edit_todo_list_item_path(@todo_list, item), class: "btn btn-sm btn-outline-primary" do %>
+                      <%= link_to edit_todo_list_item_path(@todo_list, item), class: "btn btn-sm btn-outline-primary toggle-btn" do %>
                         Editar
                       <% end %>
                       <!-- Botão de Excluir -->
