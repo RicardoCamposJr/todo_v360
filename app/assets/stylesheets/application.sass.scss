@@ -31,3 +31,101 @@ body {
   flex-direction: column;
   align-content: center;
 }
+
+.kanban-item {
+  cursor: move;
+  transition: all 0.2s ease;
+  border: 1px solid #dee2e6;
+}
+
+.kanban-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  border-radius: 8px;
+}
+
+.card-header {
+  border-radius: 8px 8px 0 0 !important;
+}
+
+.display-4 {
+  font-weight: 600;
+}
+
+.list-group-item {
+  border-left: none;
+  border-right: none;
+}
+
+.list-group-item:first-child {
+  border-top: none;
+}
+
+.list-group-item:last-child {
+  border-bottom: none;
+}
+
+.btn-group .btn {
+  border-radius: 4px;
+}
+
+.btn-group .btn:not(:last-child) {
+  margin-right: 2px;
+}
+
+.list-group-item {
+  transition: background-color 0.2s ease;
+}
+
+.list-group-item:hover {
+  background-color: #f8f9fa;
+}
+
+.dropdown-menu {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-item {
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
+.task-container {
+  padding-right: 0 !important;
+  padding-left: 8px !important;
+}
+
+.btns-group {
+  display: flex !important;
+  gap: 8px !important;
+  padding: 0 !important;
+}
+
+.toggle-btn {
+  border-radius: 4px !important;
+}
+
+.list-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.task-title {
+  display: flex;
+  gap: 0.8rem;
+
+  h6 {
+    margin: 0;
+  }
+
+  div {
+    margin: 0;
+  }
+}

@@ -1,7 +1,11 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_todo_list
-  before_action :set_item, only: [ :update, :destroy ]
+  before_action :set_item, only: [ :update, :destroy, :edit ]
+
+  def new
+    @item = @todo_list.items.new
+  end
 
   def create
     @item = @todo_list.items.new(item_params)
@@ -12,11 +16,14 @@ class ItemsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
   def update
     if @item.update(item_params)
-      redirect_to @todo_list, notice: "Tarefa atualizada."
+      redirect_to todo_list_path(@item.todo_list)
     else
-      redirect_to @todo_list, alert: "Erro ao atualizar tarefa."
+      render :edit
     end
   end
 

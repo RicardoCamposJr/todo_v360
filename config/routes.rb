@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   root to: "todo_lists#index"
 
   resources :todo_lists do
-    # Aninhando rotas
-    resources :items, only: [ :create, :update, :destroy ]
-  end
+  # Aninhando rotas
+  resources :items, only: [ :new, :create, :edit, :update, :destroy ]
+end
 end
