@@ -62,7 +62,7 @@
                           <% Item.statuses.keys.each do |status| %>
                             <% unless status == item.status %>
                               <li>
-                                <%= link_to todo_list_item_path(@todo_list, item), method: :patch, 
+                                <%= button_to todo_list_item_path(@todo_list, item), method: :patch, 
                                     params: { item: { status: status } }, 
                                     class: "dropdown-item",
                                     data: { confirm: "Alterar status para #{status.humanize}?" } do %>
