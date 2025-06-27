@@ -1,10 +1,12 @@
 <div class="container mt-4 pb-5 responsive-width">
   <div class="row">
     <div class="col-12">
+      <!-- Header da listagem -->
       <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="h2 mb-0">Lista de TO DO's</h1>
+        <h1 class="h2 mb-0">Listas</h1>
         <%= link_to 'Nova Lista', new_todo_list_path, class: "btn btn-primary" %>
       </div>
+      <!-- Listagem -->
       <% if @todo_lists.any? %>
         <div class="accordion" id="todoListsAccordion">
           <% @todo_lists.each_with_index do |list, index| %>
@@ -16,6 +18,7 @@
                         data-bs-target="#collapse<%= list.id %>" 
                         aria-expanded="<%= index == 0 ? 'true' : 'false' %>" 
                         aria-controls="collapse<%= list.id %>">
+                  <!-- Título da lista, idicando também o número de tarefas e tarefas concluídas -->
                   <div class="d-flex justify-content-between align-items-center w-100 me-3">
                     <div>
                       <strong><%= list.title %></strong>
@@ -31,30 +34,37 @@
                         <% end %>
                       </small>
                     </div>
+                    <!-- Badge que indica quantas tarefas existem na lista -->
                     <span class="badge text-bg-primary rounded-pill">
                       <%= list.items.count %>
                     </span>
                   </div>
                 </button>
               </h2>
+              <!-- Conteúdo do Accordion -->
               <div id="collapse<%= list.id %>" 
                    class="accordion-collapse collapse <%= 'show' if index == 0 %>" 
                    data-bs-parent="#todoListsAccordion">
                 <div class="accordion-body">
                   <% if list.items.any? %>
+                    <!-- Lista ordenada das tarefas -->
                     <ol class="list-group list-group-numbered">
                       <% list.items.each do |item| %>
+                        <!-- Tarefa -->
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                           <div class="ms-2 me-auto">
+                            <!-- Título das tarefas -->
                             <div class="fw-bold <%= 'text-decoration-line-through text-muted' if item.status == 'done' %>">
                               <%= item.title %>
                             </div>
+                            <!-- Descrição -->
                             <% if item.description.present? %>
                               <div class="text-muted small">
                                 <%= item.description %>
                               </div>
                             <% end %>
                           </div>
+                          <!-- Badge contendo o status -->
                           <span class="badge <%= 
                             case item.status
                             when 'done' then 'text-bg-success'
@@ -73,18 +83,22 @@
                         </li>
                       <% end %>
                     </ol>
+                    <!-- Tratativa para caso a lista não possua tarefas -->
                   <% else %>
                     <p class="text-muted mb-3">Esta lista não possui tarefas ainda.</p>
                   <% end %>
+                  <!-- Área destinada aos botões funcionais -->
                   <div class="d-flex gap-2 mt-3">
                     <%= link_to 'Ver Lista', todo_list_path(list), class: "btn btn-outline-primary btn-sm" %>
                     <%= link_to 'Editar', edit_todo_list_path(list), class: "btn btn-outline-secondary btn-sm" %>
+                    <%= button_to 'Excluir', todo_list_path(list), class: "btn btn-outline-danger btn-sm", method: :delete, data: { confirm: "Tem certeza que deseja excluir esta lista?" } %>
                   </div>
                 </div>
               </div>
             </div>
           <% end %>
         </div>
+        <!-- Tratativa para caso o usuário não possua listas -->
       <% else %>
         <div class="text-center py-5">
           <h3 class="text-muted">Nenhuma lista criada ainda</h3>
