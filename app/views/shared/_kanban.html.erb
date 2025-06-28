@@ -1,0 +1,79 @@
+<section class="kanban-board">
+  <div class="row g-3">
+    <!-- Coluna A Fazer -->
+    <div class="col-lg-4 col-md-12">
+      <div class="kanban-column">
+        <div class="kanban-header bg-secondary">
+          <h5 class="text-white mb-0 d-flex align-items-center">
+            <i class="fas fa-clock me-2"></i>
+            A Fazer
+            <span class="badge bg-light text-dark ms-2">
+              <%= items.where(status: 'to_do').count %>
+            </span>
+          </h5>
+        </div>
+        <div class="kanban-body">
+          <% items.where(status: 'to_do').each do |item| %>
+            <%= render 'shared/kanban_card', item: item, todo_list: todo_list, current_status: 'to_do' %>
+          <% end %>
+          <% if items.where(status: 'to_do').empty? %>
+            <div class="empty-column">
+              <i class="fas fa-inbox fa-2x text-muted mb-2"></i>
+              <p class="text-muted small">Nenhuma tarefa</p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <!-- Coluna Em Progresso -->
+    <div class="col-lg-4 col-md-12">
+      <div class="kanban-column">
+        <div class="kanban-header bg-info">
+          <h5 class="text-white mb-0 d-flex align-items-center">
+            <i class="fas fa-spinner me-2"></i>
+            Em Progresso
+            <span class="badge bg-light text-dark ms-2">
+              <%= items.where(status: 'in_progress').count %>
+            </span>
+          </h5>
+        </div>
+        <div class="kanban-body">
+          <% items.where(status: 'in_progress').each do |item| %>
+            <%= render 'shared/kanban_card', item: item, todo_list: todo_list, current_status: 'in_progress' %>
+          <% end %>
+          <% if items.where(status: 'in_progress').empty? %>
+            <div class="empty-column">
+              <i class="fas fa-spinner fa-2x text-muted mb-2"></i>
+              <p class="text-muted small">Nenhuma tarefa</p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <!-- Coluna Concluídas -->
+    <div class="col-lg-4 col-md-12">
+      <div class="kanban-column">
+        <div class="kanban-header bg-success">
+          <h5 class="text-white mb-0 d-flex align-items-center">
+            <i class="fas fa-check me-2"></i>
+            Concluídas
+            <span class="badge bg-light text-dark ms-2">
+              <%= items.where(status: 'done').count %>
+            </span>
+          </h5>
+        </div>
+        <div class="kanban-body">
+          <% items.where(status: 'done').each do |item| %>
+            <%= render 'shared/kanban_card', item: item, todo_list: todo_list, current_status: 'done' %>
+          <% end %>
+          <% if items.where(status: 'done').empty? %>
+            <div class="empty-column">
+              <i class="fas fa-check-circle fa-2x text-muted mb-2"></i>
+              <p class="text-muted small">Nenhuma tarefa</p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
