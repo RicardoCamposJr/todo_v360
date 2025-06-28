@@ -1,0 +1,35 @@
+<div class="kanban-card <%= 'completed' if current_status == 'done' %>" data-item-id="<%= item.id %>">
+  <div class="card-content">
+    <h6 class="task-title <%= 'text-decoration-line-through' if current_status == 'done' %>">
+      <%= item.title %>
+    </h6>
+    <% if item.description.present? %>
+      <p class="task-description-kanban <%= 'text-muted' if current_status == 'done' %>">
+        <%= truncate(item.description, length: 100) %>
+      </p>
+    <% end %>
+    <small class="text-muted d-block mb-2">
+      Criada em <%= l(item.created_at, format: :short) %>
+    </small>
+    <div class="task-actions">
+      <div class="btn-group" role="group">
+        <!-- Botão de Editar -->
+        <%= link_to edit_todo_list_item_path(todo_list, item), 
+            class: "btn btn-sm btn-outline-primary",
+            data: { bs_toggle: "tooltip", bs_title: "Editar" } do %>
+          <i class="fas fa-edit"></i>Editar
+        <% end %>
+        <!-- Botão de Excluir -->
+        <%= button_to todo_list_item_path(todo_list, item), method: :delete,
+            class: "btn btn-sm btn-outline-danger",
+            data: { 
+              confirm: "Excluir '#{item.title}'?",
+              bs_toggle: "tooltip",
+              bs_title: "Excluir"
+            } do %>
+          <i class="fas fa-trash"></i>Excluir
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
