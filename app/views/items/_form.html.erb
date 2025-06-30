@@ -10,7 +10,7 @@
   <div class="mb-3">
     <%= form.label :status, "Status", class: "form-label" %>
     <%= form.select :status, 
-        Item.statuses.keys.map { |s| [s.humanize, s] }, 
+        Item.statuses.keys.map { |s| [status_label(s), s] }, 
         { prompt: 'Selecione um status' }, 
         { class: "form-select" } %>
   </div>
