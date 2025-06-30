@@ -1,10 +1,12 @@
-<div class="container mt-4 pb-5 responsive-width">
+<div class="container mt-4 pb-5">
   <div class="row">
     <div class="col-12">
       <!-- Header da listagem -->
       <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h2 mb-0">Listas</h1>
-        <%= link_to 'Nova Lista', new_todo_list_path, class: "btn btn-primary" %>
+        <% if @todo_lists.any? %>
+          <%= link_to 'Nova Lista', new_todo_list_path, class: "btn btn-primary" %>
+        <% end %>
       </div>
       <!-- Listagem -->
       <% if @todo_lists.any? %>
