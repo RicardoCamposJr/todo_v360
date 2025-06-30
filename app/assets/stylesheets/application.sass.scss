@@ -1,5 +1,6 @@
 // Entry point for your Sass build
 @import "components/kanban";
+@import "components/welcome_page";
 
 body {
   height: 100vh;
@@ -152,4 +153,8 @@ body {
   .accordion-body-display-group-btns {
     margin-left: 0 !important;
   }
+}
+
+.card-header-gradient {
+  background: linear-gradient(135deg, #667eea 0%, rgb(98, 63, 238) 100%);
 }
