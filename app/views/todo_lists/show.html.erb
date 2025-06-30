@@ -12,14 +12,14 @@
             <i class="fas fa-plus me-1"></i>Nova Tarefa
           <% end %>
         <% end %>
-        <div class="btn-group" role="group" aria-label="View toggle button group">
-          <input type="radio" class="btn-check" name="view_toggle" id="btnradio_list" autocomplete="off"
+        <div class="btn-group" role="group" aria-label="View toggle button group" data-controller="view-toggle">
+          <input type="radio" class="btn-check" name="view_toggle" value="list" id="btnradio_list" autocomplete="off"
             <%= params[:view] != "kanban" ? "checked" : "" %>
-            onchange="window.location.href='?view=list'">
+            data-action="change->view-toggle#setView">
           <label class="btn btn-outline-primary" for="btnradio_list">Lista</label>
-          <input type="radio" class="btn-check" name="view_toggle" id="btnradio_kanban" autocomplete="off"
+          <input type="radio" class="btn-check" name="view_toggle" value="kanban" id="btnradio_kanban" autocomplete="off"
             <%= params[:view] == "kanban" ? "checked" : "" %>
-            onchange="window.location.href='?view=kanban'">
+            data-action="change->view-toggle#setView">
           <label class="btn btn-outline-primary" for="btnradio_kanban">Kanban</label>
         </div>
       </div>
