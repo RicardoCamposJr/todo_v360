@@ -140,3 +140,16 @@ body {
 .task-description {
   max-width: 50%;
 }
+
+@media (max-width: 426px) {
+  .accordion-body-display {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+}
+
+@media (max-width: 426px) {
+  .accordion-body-display-group-btns {
+    margin-left: 0 !important;
+  }
+}
