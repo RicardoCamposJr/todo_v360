@@ -1,4 +1,9 @@
-<div class="kanban-card <%= 'completed' if current_status == 'done' %>" data-item-id="<%= item.id %>">
+<div class="kanban-card <%= 'completed' if current_status == 'done' %>" 
+     data-kanban-target="card"
+     data-item-id="<%= item.id %>"
+     data-todo-list-id="<%= todo_list.id %>"
+     draggable="true"
+     data-action="dragstart->kanban#dragStart dragend->kanban#dragEnd">
   <div class="card-content">
     <h6 class="task-title <%= 'text-decoration-line-through' if current_status == 'done' %>">
       <%= item.title %>
