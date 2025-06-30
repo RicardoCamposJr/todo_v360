@@ -4,7 +4,7 @@ module ApplicationHelper
     when "to_do"
       "A Fazer"
     when "in_progress"
-      "Em Progresso"
+      "Pendente"
     when "done"
       "Concluída"
     else
