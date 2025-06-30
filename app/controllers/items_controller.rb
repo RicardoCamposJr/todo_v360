@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_todo_list
-  before_action :set_item, only: [ :update, :destroy, :edit ]
+  before_action :set_item, only: [ :update, :destroy, :edit, :update_status ]
 
   def new
     @item = @todo_list.items.new
@@ -31,6 +31,23 @@ class ItemsController < ApplicationController
   def destroy
     @item.destroy
     redirect_to @todo_list, notice: "Tarefa removida."
+  end
+
+  # Endpoint para atualizar o status de uma task pelo kanban
+  def update_status
+    if @item.update(status: params[:status])
+      render json: {
+        success: true,
+        item_id: @item.id,
+        new_status: @item.status,
+        message: "Status atualizado com sucesso"
+      }
+    else
+      render json: {
+        success: false,
+        errors: @item.errors.full_messages
+      }, status: :unprocessable_entity
+    end
   end
 
   private

@@ -1,4 +1,4 @@
-<section class="kanban-board">
+<section class="kanban-board" data-controller="kanban">
   <div class="row g-3">
     <!-- Coluna A Fazer -->
     <div class="col-lg-4 col-md-12">
@@ -12,7 +12,10 @@
             </span>
           </h5>
         </div>
-        <div class="kanban-body">
+        <div class="kanban-body" 
+             data-kanban-target="column" 
+             data-status="to_do" 
+             data-action="dragover->kanban#dragOver dragleave->kanban#dragLeave drop->kanban#drop">
           <% items.where(status: 'to_do').each do |item| %>
             <%= render 'shared/kanban_card', item: item, todo_list: todo_list, current_status: 'to_do' %>
           <% end %>
@@ -37,7 +40,10 @@
             </span>
           </h5>
         </div>
-        <div class="kanban-body">
+        <div class="kanban-body" 
+             data-kanban-target="column" 
+             data-status="in_progress" 
+             data-action="dragover->kanban#dragOver dragleave->kanban#dragLeave drop->kanban#drop">
           <% items.where(status: 'in_progress').each do |item| %>
             <%= render 'shared/kanban_card', item: item, todo_list: todo_list, current_status: 'in_progress' %>
           <% end %>
@@ -62,7 +68,10 @@
             </span>
           </h5>
         </div>
-        <div class="kanban-body">
+        <div class="kanban-body" 
+             data-kanban-target="column" 
+             data-status="done" 
+             data-action="dragover->kanban#dragOver dragleave->kanban#dragLeave drop->kanban#drop">
           <% items.where(status: 'done').each do |item| %>
             <%= render 'shared/kanban_card', item: item, todo_list: todo_list, current_status: 'done' %>
           <% end %>
