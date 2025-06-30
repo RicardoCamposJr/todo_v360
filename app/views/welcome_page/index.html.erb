@@ -1,0 +1,53 @@
+<div class="hero-section">
+  <div class="container">
+    <div class="row align-items-center min-vh-100">
+      <div class="col-lg-6">
+        <div class="hero-content">
+          <h1 class="hero-title">
+            DailyDone
+          </h1>
+          <p class="hero-subtitle">
+            Organize suas tarefas de forma simples e eficiente. 
+            Aumente sua produtividade e nunca mais esqueça de nada importante.
+          </p>
+          <div class="hero-buttons">
+            <%= link_to new_user_session_path, class: " btn-custom btn-login" do %>
+              <i class="fas fa-sign-in-alt me-2"></i>
+              Entrar
+            <% end %>
+            <%= link_to new_user_registration_path, class: " btn-custom btn-register" do %>
+              <i class="fas fa-user-plus me-2"></i>
+              Cadastre-se
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="hero-image">
+          <div class="floating-card">
+            <div class="card task-preview">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <i class="fas fa-check-circle text-success me-2"></i>
+                  Suas tarefas organizadas
+                </h5>
+                <div class="task-item completed">
+                  <i class="fas fa-check me-2"></i>
+                  Revisar relatório mensal
+                </div>
+                <div class="task-item">
+                  <i class="far fa-circle me-2"></i>
+                  Preparar apresentação
+                </div>
+                <div class="task-item">
+                  <i class="far fa-circle me-2"></i>
+                  Reunião com equipe
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
