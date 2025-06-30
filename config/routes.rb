@@ -12,15 +12,16 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  root to: "todo_lists#index"
+  root to: "welcome_page#index"
 
-  resources :todo_lists do
-  # Aninhando rotas
-  resources :items, only: [ :new, :create, :edit, :update, :destroy ] do
-    # Rota de mudança de status para o drag and drop do kanban (PATCH /todo_lists/:todo_list_id/items/:id/update_status)
-    member do
-      patch :update_status
+  # Proteger as rotas da aplicação com autenticação
+  authenticate :user do
+    resources :todo_lists do
+      resources :items, only: [ :new, :create, :edit, :update, :destroy ] do
+        member do
+          patch :update_status
+        end
+      end
     end
   end
-end
 end
