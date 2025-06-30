@@ -90,8 +90,8 @@
                     <p class="text-muted mb-3">Esta lista não possui tarefas ainda.</p>
                   <% end %>
                   <!-- Área destinada aos botões funcionais -->
-                  <div class="d-flex gap-2 mt-3">
-                    <%= link_to 'Ver Lista', todo_list_path(list), class: "btn btn-outline-primary btn-sm" %>
+                  <div class="d-flex gap-2 mt-3" data-controller="view">
+                    <%= link_to 'Ver Lista', todo_list_path(list), class: "btn btn-outline-primary btn-sm", data: { view_target: "backLink" } %>
                     <%= link_to 'Editar', edit_todo_list_path(list), class: "btn btn-outline-secondary btn-sm" %>
                     <%= button_to 'Excluir', todo_list_path(list), class: "btn btn-outline-danger btn-sm", method: :delete, data: { confirm: "Tem certeza que deseja excluir esta lista?" } %>
                   </div>
