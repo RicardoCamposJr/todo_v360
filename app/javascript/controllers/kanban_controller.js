@@ -116,6 +116,27 @@ export default class extends Controller {
     this.updateItemStatus(todoListId, itemId, newStatus);
   }
 
+  openModal(event) {
+    const card = event.currentTarget;
+    const title = card.querySelector(".task-title").textContent.trim();
+    const description = card.querySelector(".task-description-kanban")?.textContent.trim() || "Sem descrição";
+    const createdAt = card.querySelector("small").textContent.trim();
+
+    const modalBody = document.getElementById("kanbanCardModalBody")
+    modalBody.innerHTML = `
+      <h6>${title}</h6>
+      <p>${description}</p>
+      <small class="text-muted">${createdAt}</small>
+    `
+
+    const modal = new bootstrap.Modal(document.getElementById("kanbanCardModal"))
+    modal.show()
+  }
+
+  stopPropagation(event) {
+    event.stopPropagation();
+  }
+
   // Atualiza a aparência visual do card baseado no status
   updateCardAppearance(card, status) {
     // Seleciona elementos específicos do card
