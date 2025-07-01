@@ -3,7 +3,7 @@
      data-item-id="<%= item.id %>"
      data-todo-list-id="<%= todo_list.id %>"
      draggable="true"
-     data-action="dragstart->kanban#dragStart dragend->kanban#dragEnd">
+     data-action="dragstart->kanban#dragStart dragend->kanban#dragEnd click->kanban#openModal">
   <div class="card-content">
     <h6 class="task-title <%= 'text-decoration-line-through' if current_status == 'done' %>">
       <%= item.title %>
@@ -21,7 +21,7 @@
         <!-- Botão de Editar -->
         <%= link_to edit_todo_list_item_path(todo_list, item), 
             class: "btn btn-sm btn-outline-primary",
-            data: { bs_toggle: "tooltip", bs_title: "Editar" } do %>
+            data: { bs_toggle: "tooltip", bs_title: "Editar", action: "click->kanban#stopPropagation" } do %>
           <i class="fas fa-edit"></i>Editar
         <% end %>
         <!-- Botão de Excluir -->
@@ -30,10 +30,27 @@
             data: { 
               confirm: "Excluir '#{item.title}'?",
               bs_toggle: "tooltip",
-              bs_title: "Excluir"
+              bs_title: "Excluir",
+              action: "click->kanban#stopPropagation"
             } do %>
           <i class="fas fa-trash"></i>Excluir
         <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="kanbanCardModal" tabindex="-1" aria-labelledby="kanbanCardModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="kanbanCardModalLabel">Detalhes da Tarefa</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body" id="kanbanCardModalBody">
+        <!-- Conteúdo será inserido dinamicamente pelo JS -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
       </div>
     </div>
   </div>
