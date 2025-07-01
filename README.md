@@ -50,7 +50,7 @@ Este é um projeto Ruby on Rails 8, configurado com PostgreSQL, Hotwire (Turbo +
 1. Clone o repositório:
 
   ```bash
-  git clone https://github.com/seu-usuario/seu-projeto.git
+  git clone https://github.com/RicardoCamposJr/todo_v360.git
   cd seu-projeto
   ```
   
