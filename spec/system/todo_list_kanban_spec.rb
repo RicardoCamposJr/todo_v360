@@ -1,10 +1,8 @@
-# spec/system/todo_list_kanban_spec.rb
-
 require 'rails_helper'
 
 RSpec.describe "TodoLists Kanban view", type: :system do
   before do
-    driven_by(:rack_test) # use :selenium_chrome_headless se quiser testar JS interativo
+    driven_by(:rack_test)
 
     @user = User.create!(email: "test@example.com", password: "password")
     login_as(@user, scope: :user)
