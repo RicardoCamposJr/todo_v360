@@ -17,23 +17,23 @@ RSpec.describe "Items", type: :request do
   end
 
   describe "GET /todo_lists/:todo_list_id/items/:id/edit" do
-    it "retorna sucesso" do
+    it "returns success" do
       get edit_todo_list_item_path(todo_list, item)
       expect(response).to have_http_status(:success)
     end
   end
 
   describe "PATCH /todo_lists/:todo_list_id/items/:id" do
-    context "com params válidos" do
-      it "atualiza o item e redireciona para a todo_list" do
+    context "with valid params" do
+      it "update item and redirect to todo_list" do
         patch todo_list_item_path(todo_list, item), params: { item: { title: "Tarefa atualizada" } }
         expect(response).to redirect_to(todo_list)
         expect(item.reload.title).to eq("Tarefa atualizada")
       end
     end
 
-    context "com params inválidos" do
-      it "renderiza edit com status 422" do
+    context "with valid params" do
+      it "render edit with 422 status" do
         patch todo_list_item_path(todo_list, item), params: { item: { title: "" } }
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.body).to include("Edit") # ou algo que confirme que renderizou o form
@@ -42,7 +42,7 @@ RSpec.describe "Items", type: :request do
   end
 
   describe "DELETE /todo_lists/:todo_list_id/items/:id" do
-    it "remove o item e redireciona para a todo_list" do
+    it "remove item and redirect to todo_list" do
       item # cria o item antes do expect
       expect {
         delete todo_list_item_path(todo_list, item)
@@ -52,7 +52,7 @@ RSpec.describe "Items", type: :request do
   end
 
   describe "PATCH /todo_lists/:todo_list_id/items/:id/update_status" do
-    it "atualiza o status do item e retorna JSON de sucesso" do
+    it "update item status and returns success JSON" do
       patch update_status_todo_list_item_path(todo_list, item), params: { status: "done" }
       expect(response).to have_http_status(:ok)
       expect(response.content_type).to eq("application/json; charset=utf-8")
@@ -65,7 +65,7 @@ RSpec.describe "Items", type: :request do
       expect(item.reload.status).to eq("done")
     end
 
-    it "retorna erro se status inválido" do
+    it "returns error if invalid status" do
       patch update_status_todo_list_item_path(todo_list, item), params: { status: "" }
       expect(response).to have_http_status(:unprocessable_entity)
 
