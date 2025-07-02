@@ -7,10 +7,11 @@ Rails.application.routes.draw do
 
   root to: "welcome_page#index"
 
-  # Proteger as rotas da aplicação com autenticação
+  # Protege as rotas da aplicação com autenticação de usuário
   authenticate :user do
     resources :todo_lists do
       resources :items, only: [ :new, :create, :edit, :update, :destroy ] do
+        # Adiciona uma rota PATCH para a atualização do status de um item específico, para o drag and drop do Kanban
         member do
           patch :update_status
         end
