@@ -16,11 +16,14 @@
         <% if items.any? %>
           <div class="list-group list-group-flush">
             <% items.each do |item| %>
+              <!-- Item da lista -->
               <div class="list-group-item task-container">
                 <div class="d-flex justify-content-between align-items-start accordion-body-display">
                   <div class="flex-grow-1">
                     <div class="task-title">
-                      <div>
+                      <!-- Dados da tarefa -->
+                      <div class="task-infos">
+                        <!-- Título e badges -->
                         <div class="task-infos">
                           <h6 class="fw-medium mb-1"><%= item.title %></h6>
                           <div class="d-flex align-items-center mt-1">
@@ -44,18 +47,22 @@
                             <% end %>
                           </div>
                         </div>
+                        <!-- Descrição -->
                         <% if item.description.present? %>
                           <p class="mb-1 text-muted"><%= item.description %></p>
                         <% end %>
+                        <!-- Data de criação -->
                         <small class="text-secondary">Criada em <%= l(item.created_at, format: :short) %></small>
                       </div>
                     </div>
                   </div>
+                  <!-- Grupo de botões -->
                   <div class="btn-group btns-group" role="group">
                     <div class="btn-group" role="group">
                       <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle toggle-btn" data-bs-toggle="dropdown" aria-expanded="false">
                         Status
                       </button>
+                      <!-- Dropdown de status -->
                       <ul class="dropdown-menu">
                         <% Item.statuses.keys.each do |status| %>
                           <% unless status == item.status %>
@@ -97,6 +104,7 @@
             <% end %>
           </div>
         <% else %>
+          <!-- Tratativa visual de lista vazia -->
           <div class="text-center py-4">
             <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
             <p class="text-muted">Nenhuma tarefa encontrada.</p>

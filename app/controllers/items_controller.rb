@@ -3,6 +3,8 @@ class ItemsController < ApplicationController
   before_action :set_todo_list
   before_action :set_item, only: [ :update, :destroy, :edit, :update_status ]
 
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
   def new
     @item = @todo_list.items.new
   end
@@ -29,8 +31,11 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    @item.destroy
-    redirect_to @todo_list, notice: "Tarefa removida."
+    if @item.destroy
+      redirect_to @todo_list, notice: "Tarefa removida."
+    else
+      redirect_to @todo_list, alert: "Erro ao remover tarefa."
+    end
   end
 
   # Endpoint para atualizar o status de uma task pelo kanban
@@ -62,5 +67,9 @@ class ItemsController < ApplicationController
 
   def item_params
     params.require(:item).permit(:title, :status, :description)
+  end
+
+  def record_not_found
+    redirect_to todo_lists_path, alert: "Tarefa ou lista não encontrada."
   end
 end

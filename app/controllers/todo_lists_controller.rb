@@ -2,6 +2,8 @@ class TodoListsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_todo_list, only: [ :show, :edit, :update, :destroy ]
 
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
   def index
     @todo_lists = current_user.todo_lists
   end
@@ -34,8 +36,11 @@ class TodoListsController < ApplicationController
   end
 
   def destroy
-    @todo_list.destroy
-    redirect_to todo_lists_path, notice: "Lista removida."
+    if @todo_list.destroy
+      redirect_to todo_lists_path, notice: "Lista removida."
+    else
+      redirect_to @todo_list, alert: "Erro ao remover a lista."
+    end
   end
 
   private
@@ -46,5 +51,9 @@ class TodoListsController < ApplicationController
 
   def todo_list_params
     params.require(:todo_list).permit(:title)
+  end
+
+  def record_not_found
+    redirect_to todo_lists_path, alert: "Lista não encontrada."
   end
 end

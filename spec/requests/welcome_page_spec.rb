@@ -1,7 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "WelcomePages", type: :request do
-  describe "GET /index" do
-    pending "add some examples (or delete) #{__FILE__}"
+  describe "GET /" do
+    it "render page" do
+      get root_path
+      expect(response.body).to include("DailyDone")
+    end
   end
 end

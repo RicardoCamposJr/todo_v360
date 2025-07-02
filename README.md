@@ -73,6 +73,9 @@ rails db:create db:migrate
 bin/dev
 ```
 
+### Diagrama Entidade-Relacionamento (ER) do projeto
+![Diagrama Entidade-Relacionamento (ER)](image-16.png)
+
 Acesse: http://localhost:3000
 
 ## ✨ Features da plataforma (Telas mais relevantes)

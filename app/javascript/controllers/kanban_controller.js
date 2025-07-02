@@ -45,7 +45,7 @@ export default class extends Controller {
     this.draggedElement = null;
   }
 
-  // Função executada o card passa por uma coluna
+  // Função executada quando o card passa por uma coluna
   dragOver(event) {
     // Previne o comportamento padrão para permitir o drop
     event.preventDefault();
@@ -162,16 +162,15 @@ export default class extends Controller {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        // Token CSRF para segurança (previne ataques CSRF)
+        // Token CSRF para segurança. O Rails já utiliza esse token nas requisições padrão,
+        // mas em requisições via AJAX é preciso incluí-la explicitamente, pois o servidor espera o token.
         "X-CSRF-Token": document
           .querySelector("meta[name='csrf-token']")
           .getAttribute("content"),
       },
-      // Envia o novo status no corpo da requisição
       body: JSON.stringify({ status: newStatus }),
     })
       .then((response) => {
-        // Verificando se a responsta é positiva
         if (!response.ok) {
           throw new Error(`Erro de requisição! status: ${response.status}`);
         }
@@ -182,7 +181,6 @@ export default class extends Controller {
         this.updateColumnCounters();
       })
       .catch((error) => {
-        // Em caso de erro, exibe alerta e recarrega a página
         alert(
           "Falha ao atualizar status da tarefa. A página será recarregada."
         );

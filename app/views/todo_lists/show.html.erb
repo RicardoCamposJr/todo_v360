@@ -4,6 +4,7 @@
       <h1 class="display-4 text-primary mb-0"><%= @todo_list.title %></h1>
       <div class="mt-3">
         <%= link_to 'Home', todo_lists_path, class: "btn btn-outline-secondary" %>
+        <!-- Botão de nova tarefa caso a visualização seja Kanban -->
         <% if params[:view] == "kanban" %>
           <%= link_to new_todo_list_item_path(@todo_list),
             method: :get, 
@@ -12,6 +13,7 @@
             <i class="fas fa-plus me-1"></i>Nova Tarefa
           <% end %>
         <% end %>
+        <!-- Toggle de visualização -->
         <div class="btn-group" role="group" aria-label="View toggle button group" data-controller="view-toggle">
           <input type="radio" class="btn-check" name="view_toggle" value="list" id="btnradio_list" autocomplete="off"
             <%= params[:view] != "kanban" ? "checked" : "" %>
