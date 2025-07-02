@@ -74,7 +74,7 @@ bin/dev
 ```
 
 ### Diagrama Entidade-Relacionamento (ER) do projeto
-![alt text](image-15.png)
+![Diagrama Entidade-Relacionamento (ER)](image-16.png)
 
 Acesse: http://localhost:3000
 
