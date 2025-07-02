@@ -46,6 +46,16 @@ RSpec.configure do |config|
     Rails.root.join('spec/fixtures')
   ]
 
+  # Usa driver rack_test por padrão (sem JS)
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
+
+  # Usa Selenium com Chrome headless quando :js está presente
+  config.before(:each, type: :system, js: true) do
+    driven_by :selenium_chrome_headless
+  end
+
   config.include Warden::Test::Helpers
   config.after(:each) { Warden.test_reset! }
 
